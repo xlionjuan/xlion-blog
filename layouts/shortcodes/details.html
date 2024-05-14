@@ -1,0 +1,11 @@
+<!--
+    Details disclosure and summary elements hugo shortcode. 
+    https://gist.github.com/maxrodrigo/34996d1ea036555edb9b692d496fab19?permalink_comment_id=3736076#gistcomment-3736076
+-->
+{{ .Scratch.Set "lastp" (sub (.Params | len) 1) }}
+<details {{ if .Get 0 | eq "open"}} open {{ end }}>
+    <summary>
+        {{ i18n "click_to_open" }}{{ .Get (.Scratch.Get "lastp") | markdownify }}
+    </summary>
+    {{ .Inner | markdownify }}
+</details>

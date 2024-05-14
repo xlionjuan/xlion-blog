@@ -1,0 +1,77 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  create-release:
+    if: github.event.pull_request.merged == true
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+
+      - name: Install Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Build
+        run: |
+          hugo --minify
+
+      - name: Delete old Release
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const { owner, repo } = context.repo
+            // 獲取最新的發布資訊
+            const latestRelease = await github.rest.repos.getLatestRelease({
+              owner,
+              repo,
+            });
+    
+            // 判斷是否成功獲取到最新發布的資訊
+            if (latestRelease && latestRelease.data && latestRelease.data.id) {
+              // 如果有最新發布，則進行刪除
+              await github.rest.repos.deleteRelease({
+                owner,
+                repo,
+                release_id: latestRelease.data.id,
+              });
+              console.log(`Release id ${latestRelease.data.id} has been deleted.`);
+            } else {
+              // 如果沒有獲取到最新發布的資訊，則輸出提示訊息
+              console.log("No latest release found or failed to retrieve it.");
+            }
+
+      - name: Retrieve current Date Time in Asia/Taipei
+        shell: bash
+        run: echo "START_TIME=$(TZ=":Asia/Taipei" date +'%Y-%m-%d-%H:%M:%S')" >> $GITHUB_ENV
+
+      - name: Archive Release
+        uses: thedoctor0/zip-release@0.7.6
+        with:
+          type: 'zip'
+          filename: 'release-${{ env.START_TIME }}.zip'
+          #exclusions: '*.git* /*node_modules/* .editorconfig'
+          path: public
+     
+      - name: Publish Release
+        uses: softprops/action-gh-release@v2
+        with:
+          prerelease: false
+          tag_name: latest
+          body: "建立於台灣時間: ${{ env.START_TIME }}"
+          files: |
+            release-${{ env.START_TIME }}.zip

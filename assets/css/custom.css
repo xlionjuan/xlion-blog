@@ -1,0 +1,41 @@
+/* 
+This file will load by theme automatically.
+https://blowfish.page/docs/advanced-customisation/#using-additional-fonts
+*/
+
+.center {/* 專門置中物件 */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+.center-w100 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+.center-w90 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+  }
+.center-w80 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+  }
+.c-text{
+    text-align: center;
+}
+.align-mid{
+  /*
+  水平置中對齊
+  請放div的row
+  <div class="row align-mid">
+  */
+  display: flex;
+  align-items: center;
+}

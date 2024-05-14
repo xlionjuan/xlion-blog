@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "main"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "👷 gh-action"
+    labels:
+      - "dependencies"
+  - package-ecosystem: "gitsubmodule"
+    directory: "/"
+    target-branch: "main"
+    schedule:
+      interval: "daily"
+    allow:
+      - dependency-name: "themes/blowfish"
+    commit-message:
+      prefix: "🎨 Theme"
+    labels:
+      - "dependencies"
