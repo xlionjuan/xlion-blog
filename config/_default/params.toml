@@ -71,11 +71,11 @@ disableTextInHeader = false
   showTableOfContents = true
   # showRelatedContent = false
   # relatedContentLimit = 3
-  showTaxonomies = false
-  showAuthorsBadges = false
+  showTaxonomies = true
+  showAuthorsBadges = true
   showWordCount = true
   # sharingLinks = [ "linkedin", "twitter", "reddit", "pinterest", "facebook", "email", "whatsapp", "telegram"]
-  showZenMode = false
+  showZenMode = true
 
 [list]
   showHero = true
