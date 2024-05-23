@@ -25,6 +25,10 @@
   pageRef = "categories"
   weight = 70
 
+[[main]]
+  name = "關於我"
+  pageRef = "aboutme"
+  weight = 100
 
 #[[main]]
 #  name = "Blog"
