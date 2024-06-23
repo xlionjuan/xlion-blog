@@ -81,3 +81,5 @@ rm ./diff/twistd.pid
 rm ./diff/ovpn/tmp/wserv.pid
 ```
 
+## 發現
+我覺得造成這問題的原因是我昨天把我的 Proxmox 重開，然後我這 Ubuntu 忘記裝 `qemu-guest-agent` 導致可能沒能正常關機所致
