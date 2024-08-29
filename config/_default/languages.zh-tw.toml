@@ -14,7 +14,7 @@ title = "XLion Blog"
   #description = "My awesome website"
   copyright = "Shihfu Juan © { year } | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.zh-hant)"
 
-[author]
+[params.author]
    name = "Shihfu Juan"
    image = "static_img/profile.jpg"
    #headline = "I'm only human"
