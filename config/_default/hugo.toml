@@ -9,7 +9,7 @@ languageCode = 'zh-tw'
 # pluralizeListTitles = "true" # hugo function useful for non-english languages, find out more in  https://gohugo.io/getting-started/configuration/#pluralizelisttitles
 
 enableRobotsTXT = true
-paginate = 10
+#paginate = 10 # https://github.com/nunocoracao/blowfish/pull/1747
 summaryLength = 100
 hasCJKLanguage = true
 
@@ -17,6 +17,9 @@ buildDrafts = false
 buildFuture = false
 
 # googleAnalytics = "G-XXXXXXXXX"
+
+[pagination]
+  pagerSize = 10
 
 [imaging]
   anchor = 'Center'
