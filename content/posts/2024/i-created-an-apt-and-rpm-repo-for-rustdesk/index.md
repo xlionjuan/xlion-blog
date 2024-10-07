@@ -45,7 +45,7 @@ summary: 官方都不弄自己的 repo! 太煩了，自己做吧! 還有跟好�
 >
 >如果你建議我要求 RustDesk 去建立 COPR 或是提交到 Fedora，我不認為此時此刻是可能的，他們甚至沒有 Launchpad PPA！ 他們的市占率遠高於 RPM 的發行版。
 >
->他們**沒有**任何方式散播他們的軟體，也沒任何人(除了 @ besdar 正在提交到 Flathub，也有 Arch AUR)
+>他們**沒有**任何方式散播他們的軟體，也沒任何人(除了 @ besdar 正在提交到 Flathub，也有 Arch AUR) 這麼做!
 >
 >我能做的只有建立小型的 APT/RPM 儲存庫，然後使用腳本去下載他們最新的 GitHub Releases。
 >
