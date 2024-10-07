@@ -5,6 +5,7 @@ draft: "false"
 tags: [cli,vpn]
 categories: [Linux, Docker, "System Management"]
 #authors: ""
+summary: 在 Ubuntu 虛擬機執行 sudo docker ps 時發現 OpenVPN AS 一直在重啟，然後被洗版 Another twistd server is running, PID 1
 ---
 在 Ubuntu 虛擬機執行 `sudo docker ps` 時發現 OpenVPN AS 一直在重啟，然後被洗版以下訊息
 

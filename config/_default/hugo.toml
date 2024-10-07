@@ -10,7 +10,7 @@ languageCode = 'zh-tw'
 
 enableRobotsTXT = true
 #paginate = 10 # https://github.com/nunocoracao/blowfish/pull/1747
-summaryLength = 100
+summaryLength = 50
 hasCJKLanguage = true
 
 buildDrafts = false

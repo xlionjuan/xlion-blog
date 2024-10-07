@@ -10,6 +10,7 @@ keywords:
   - warp 教學
   - cloudflare warp 使用教程
 categories: [Tools]
+summary: 你有沒有遇過明明 SpeedTest 速度很快，Ping，也沒有很高，但開某些網站就是莫名的卡，下載檔案速度就剩幾 `kb/s` 的速度，或是遊戲爆 Ping 爆的很慘等奇怪經驗嗎？ 除了對方伺服器超載或故障，很可能的原因是你與目的地伺服器之間的「路由」（注意！　不是路由器），出現了問題，然後基本上，你對這件事情是無能為力的，就算跟電信業者抱怨也是無濟於事的。
 ---
 
 <div class="container">

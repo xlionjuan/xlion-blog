@@ -10,6 +10,7 @@ keywords:
   - immutable
   - linux
 categories: [Linux]
+summary: Flatpak 本身並不內建自動更新，倘若希望它能自動更新，就必須另外設置腳本以及 timer 定時器來達成，儘管許多人並不喜歡自動更新，但 Linux 的特點就是一切皆可由您做主，自動更新尤其適合於不想日後花非常多時間特別留心去維護 Linux 系統的人，又或者是你在幫不熟悉 Linux 的使用者設定自動更新
 ---
 ![](flatpak-feature.png)
 Flatpak 本身並不內建自動更新，倘若希望它能自動更新，就必須另外設置腳本以及 timer 定時器來達成，儘管許多人並不喜歡自動更新，但 Linux 的特點就是一切皆可由您做主，自動更新尤其適合於不想日後花非常多時間特別留心去維護 Linux 系統的人，又或者是你在幫不熟悉 Linux 的使用者設定自動更新，以下 Systemd 腳本取自 [OpenSUSE MicroOS](https://microos.opensuse.org/)。
