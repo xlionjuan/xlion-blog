@@ -11,9 +11,12 @@ on:
       - ".vscode/**"
       - "README.md"
       - .gitignore
+permissions: {}
 
 jobs:
   create-release:
+    permissions:
+      contents: write 
     name: Create Release
     runs-on: ubuntu-latest
     steps:
@@ -35,6 +38,7 @@ jobs:
 
       - name: Delete old Release
         uses: actions/github-script@v7
+        continue-on-error: true
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
