@@ -5,7 +5,7 @@ draft: "false"
 tags: [fedora, git, terra-repo]
 categories: [Linux]
 #authors: ""
-summary: 
+summary: 我很喜歡那種短期 Token 的想法，而不是每個要連線的設備都要去單獨創 Token，這東西在 Windows 是內建的，估計是因為是微軟維護的緣故，但 Linux 沒有內建，都得自己設定。其實 GitHub, GitLab 我是一直都用 `gh` 跟 `glab` 當憑證提供者，但我在 Windows 上與[我的 Forgejo](https://git.xlion.tw) 互動時，跳出了瀏覽器請求授權
 ---
 
 ## Why
