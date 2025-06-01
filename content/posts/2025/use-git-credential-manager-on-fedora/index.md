@@ -71,3 +71,8 @@ Caution: Log files may include sensitive information - redact before sharing.
 
 我是用 KDE，所以先確保之前存在 KWallet 的登入憑證先清掉，然後再嘗試 Push，應該要跳出瀏覽器登入，授權之後能成功 Push 就是成功了。 
 
+## 然後...
+
+我的 blog 推送到 GitHub 出問題了，它不去用 `gh` 了，解法是先去 `~/.gitconfig` 把 GitHub 有關的東西通通清光，然後再執行 `gh auth setup-git` 解決。
+
+https://github.com/cli/cli/issues/3796#issuecomment-908241663
