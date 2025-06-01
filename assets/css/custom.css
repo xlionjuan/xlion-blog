@@ -30,6 +30,9 @@ https://blowfish.page/docs/advanced-customisation/#using-additional-fonts
 .c-text{
     text-align: center;
 }
+.r-text{
+  text-align: right;
+}
 .align-mid{
   /*
   水平置中對齊
