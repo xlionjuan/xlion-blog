@@ -22,13 +22,13 @@ jobs:
     steps:
       
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           submodules: 'true'
           persist-credentials: false
 
       - name: Install Hugo
-        uses: peaceiris/actions-hugo@v3.0.0
+        uses: peaceiris/actions-hugo@75d2e84710de30f6ff7268e08f310b60ef14033f # v3.0.0
         with:
           hugo-version: 'latest'
           extended: true
@@ -38,7 +38,7 @@ jobs:
           hugo --minify
 
       - name: Delete old Release
-        uses: actions/github-script@v7.0.1
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         continue-on-error: true
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
@@ -69,7 +69,7 @@ jobs:
         run: echo "START_TIME=$(TZ=":Asia/Taipei" date +'%Y-%m-%d-%H:%M:%S')" >> $GITHUB_ENV
 
       - name: Archive Release
-        uses: thedoctor0/zip-release@0.7.6
+        uses: thedoctor0/zip-release@b57d897cb5d60cb78b51a507f63fa184cfe35554 # 0.7.6
         with:
           type: 'zip'
           filename: 'release-${{ env.START_TIME }}.zip'
@@ -77,7 +77,7 @@ jobs:
           path: public
      
       - name: Publish Release
-        uses: softprops/action-gh-release@v2.3.2
+        uses: softprops/action-gh-release@72f2c25fcb47643c292f7107632f7a47c1df5cd8 # v2.3.2
         with:
           prerelease: false
           tag_name: latest
