@@ -5,7 +5,7 @@
   "git-submodules": {"enabled": true},
   "packageRules": [
     {
-      "matchManagers": ["github-actions", "html"],
+      "matchManagers": ["github-actions", "html","git-submodules"],
       "labels": ["dependencies"]
     }
   ]
