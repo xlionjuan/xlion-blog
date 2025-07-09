@@ -1,6 +1,6 @@
 ---
 title: 不要刪 Synology DSM 的 iSCSI Subvolume
-date: 2025-07-10T12:00:06+08:00
+date: 2025-07-10T04:00:06+08:00
 draft: "false"
 tags: [Synology, Btrfs]
 categories: [System Managements]
