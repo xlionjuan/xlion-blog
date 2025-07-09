@@ -2,6 +2,14 @@
 
 This site is built with [Hugo](https://github.com/gohugoio/hugo), [Blowfish Theme](https://github.com/nunocoracao/blowfish), [Bootstrap Grid](https://getbootstrap.com/).
 
+```sh
+git clone --recursive https://github.com/xlionjuan/xlion-blog.git
+```
+
+```sh
+git pull --recurse-submodules
+```
+
 ## License
 除非另行註明，否則所有內容皆以 CC BY-SA 4.0 授權
 
