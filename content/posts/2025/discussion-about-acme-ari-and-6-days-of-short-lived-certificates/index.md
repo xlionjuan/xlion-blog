@@ -1,12 +1,19 @@
 ---
 title: ACME ARI 淺談以及 6 天短憑證
 date: 2025-06-01T23:00:38+08:00
+lastmod: 2025-07-10T02:46:38+08:00
 draft: "false"
 tags: [letsencrypt, zerossl, caddy, acme-sh, synology, tls, ca-browser-forum, certificate, apple]
 categories: [System Managements, WebPKI, Cyber Security]
 #authors: ""
 summary: ACME 更新資訊是一種讓 CA 可以「建議」Client 何時更新憑證的機制，它會提供一個 JSON endpoint 讓 ACME Client 獲取，以讓它們可以在 CA 所期望的時間進行更新憑證，或是在大規模憑證撤銷時，可以有效的以自動化的方式快速更新憑證
 ---
+
+{{< alert icon="edit">}}
+在 2025-06-17 時，ARI 已從草案轉為正式發布，基本上內容無異，所以除了 Let's Encrypt 的 ARI 端點會變，當時本文中的情況也符合現在的情況，屆時請自行參閱 directory 中所述端點進行操作，這也是 ACME 規範要求這麼做的。
+
+https://datatracker.ietf.org/doc/rfc9773/
+{{< /alert >}}
 
 ~~後來覺得好像沒很淺~~
 
