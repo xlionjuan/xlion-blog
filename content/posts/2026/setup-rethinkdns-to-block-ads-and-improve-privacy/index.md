@@ -27,6 +27,8 @@ summary: 廣告公司們以及各種資料蒐集公司都會蒐集所有使用�
 
 Windows 11 不能用 Rethink DNS 套用至系統層級，可以用 [Mullvad DNS](https://mullvad.net/en/help/dns-over-https-and-dns-over-tls#win11) 然後瀏覽器再參照本文設定，它涵蓋力沒有那兩個 HaGeZi list 那麼強但也不錯了。
 
+Windows 10（含）以下，請參考 [AdGuard Public DNS](https://adguard-dns.io/zh_tw/public-dns.html)，並查看選項 2。
+
 {{< alert icon="fire" cardColor="#e63946" iconColor="#1d3557" textColor="#f1faee" >}}
 廣告伺服器與正常內容伺服器共用的情況無法用此方法阻擋，包括但不限於 YouTube、Facebook、Instagram 以及 Reddit 等平台內的廣告
 
