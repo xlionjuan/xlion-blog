@@ -1,7 +1,7 @@
 ---
 title: 設定 RethinkDNS 以擋廣告並增進隱私
 date: 2026-01-31T02:03:20+08:00
-#lastmod:
+lastmod: 2026-04-29T20:57:20+08:00
 draft: "false"
 tags: [dns, apple, android, browser, rethinkdns, adblock]
 categories: [tools, privacy]
@@ -72,6 +72,9 @@ Android Firefox + 插件或電腦 + 插件可能可以擋掉 YouTube 的廣告
 
 3. 選取 `Threat Intelligence Feeds (HaGeZi)`（安全威脅大數據）以及 `Multi Pro (HaGeZi)`（主要廣告封鎖）使它們狀態為 `Added`
 ![](shared/rethinkdns-configure_filter_selection.png)
+
+> [!TIP] 封鎖太多？
+> 把 `Pro` 改成 `Normal` 即可
 
 4. 接下來你可以透過「放大鏡」右邊的按鈕切換 DoH 或 DoT 兩種連接模式，然後點擊右邊字串可以複製出兩種使用連結，對於非 Apple 行動平台，你可以直接複製直接使用的連結
 
