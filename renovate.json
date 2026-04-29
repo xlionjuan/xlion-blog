@@ -3,9 +3,25 @@
   "extends": ["config:best-practices"],
   "timezone": "Asia/Taipei",
   "git-submodules": {"enabled": true},
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update HUGO_VERSION in wrangler.jsonc",
+      "managerFilePatterns": ["wrangler.jsonc"],
+      "matchStrings": ["\"HUGO_VERSION\":\\s*\"(?<currentValue>[^\"]+)\""],
+      "depNameTemplate": "gohugoio/hugo",
+      "datasourceTemplate": "github-tags"
+    }
+  ],
   "packageRules": [
     {
-      "matchManagers": ["github-actions", "html","git-submodules"],
+      "matchManagers": ["github-actions", "html", "git-submodules"],
+      "labels": ["dependencies"]
+    },
+    {
+      "matchManagers": ["custom.regex"],
+      "matchDepNames": ["gohugoio/hugo"],
+      "commitMessageTopic": "Hugo version",
       "labels": ["dependencies"]
     }
   ]
