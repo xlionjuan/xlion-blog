@@ -1,7 +1,7 @@
 ---
 title: 在 Hermes Agent 設定 MiniMax Token Plan MCP 以獲得視覺與網路搜尋功能
 date: 2026-04-29T20:32:06+08:00
-#lastmod:
+lastmod: 2026-05-02T11:21:06+08:00
 draft: "false"
 tags: [minimax, mcp,'hermes agent', gemini]
 categories: ['ai agent']
@@ -45,7 +45,23 @@ mcp_servers:
 
 ## 關掉 `vision_analyze`
 
-否則你的 Agent 看到還是會一直去嘗試，並出錯，使用 `hermes setup` 設定，或叫你 Agent 弄。
+否則你的 Agent 看到還是會一直去嘗試，並出錯，使用 `hermes tools` 設定，或叫你 Agent 弄。
+
+可以一次設定 all platforms
+
+```
+Select an option:
+  ↑↓ navigate  ENTER/SPACE select  ESC cancel
+
+   (●) Configure 🖥️  CLI  (16/23 enabled)
+   (○) Configure 📱 Telegram  (16/23 enabled)
+ → (○) Configure all platforms (global)
+   (○) Reconfigure an existing tool's provider or API key
+   (○) Configure MCP server tools
+   (○) Done
+```
+
+然後用空格鍵把 `vision_analyze` 關掉，然後 Enter
 
 ```
 [ ] 👁️  Vision / Image Analysis  (vision_analyze)
