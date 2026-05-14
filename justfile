@@ -1,5 +1,5 @@
 # 預設
-default: build
+default: serve
 
 # 本地開發伺服器（含 draft、區網可存取）
 serve:
