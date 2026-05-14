@@ -1,5 +1,3 @@
-public_dir := "public"
-
 # 預設
 default: build
 
@@ -17,6 +15,6 @@ pull:
 
 # 完整清理
 clean:
-    rm -rf {{public_dir}}
+    rm -rf public
     rm -rf resources/_gen
     hugo --gc
