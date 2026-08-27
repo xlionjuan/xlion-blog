@@ -23,6 +23,16 @@ buildFuture = false
 
 [imaging]
   anchor = 'Center'
+  resampleFilter = 'lanczos'
+  [imaging.avif]
+    compression = 'lossy'
+    encoderSpeed = 10
+    hint = 'photo'
+    quality = 65
+  [imaging.webp]
+    compression = 'lossy'
+    hint = 'photo'
+    quality = 80
 
 [taxonomies]
   tag = "tags"
