@@ -20,30 +20,31 @@
   {{- $alt := .alt -}}
   {{- $originalWidth := $imgObj.Width -}}
 
-  {{- $img800 := $imgObj -}}
-  {{- $img1280 := $imgObj -}}
-  {{- if gt $originalWidth 800 -}}
-    {{- $img800 = $imgObj.Resize "800x" -}}
-  {{- end -}}
-  {{- if gt $originalWidth 1280 -}}
-    {{- $img1280 = $imgObj.Resize "1280x" -}}
-  {{- end -}}
-
-  {{- $srcset := printf "%s 800w, %s 1280w" $img800.RelPermalink $img1280.RelPermalink -}}
+  {{- $widths := slice (math.Min 800 $originalWidth | int) (math.Min 1280 $originalWidth | int) | uniq -}}
+  {{- $srcset := slice -}}
+  {{- $srcsetAvif := slice -}}
+  {{- $srcsetWebp := slice -}}
+  {{- $fallback := $imgObj -}}
   {{- $sizes := "(min-width: 768px) 50vw, 65vw" -}}
 
-  {{- /* Generate AVIF and WebP versions via Hugo's native image pipeline */ -}}
-  {{- $img800avif := $imgObj.Resize "800x avif" -}}
-  {{- $img1280avif := $imgObj.Resize "1280x avif" -}}
-  {{- $img800webp := $imgObj.Resize "800x webp" -}}
-  {{- $img1280webp := $imgObj.Resize "1280x webp" -}}
-
-  {{- $srcsetAvif := printf "%s 800w, %s 1280w" $img800avif.RelPermalink $img1280avif.RelPermalink -}}
-  {{- $srcsetWebp := printf "%s 800w, %s 1280w" $img800webp.RelPermalink $img1280webp.RelPermalink -}}
+  {{- range $index, $width := $widths -}}
+    {{- $original := $imgObj -}}
+    {{- if lt $width $originalWidth -}}
+      {{- $original = $imgObj.Resize (printf "%dx" $width) -}}
+    {{- end -}}
+    {{- if eq $index 0 -}}
+      {{- $fallback = $original -}}
+    {{- end -}}
+    {{- $avif := $imgObj.Resize (printf "%dx avif" $width) -}}
+    {{- $webp := $imgObj.Resize (printf "%dx webp" $width) -}}
+    {{- $srcset = $srcset | append (printf "%s %dw" $original.RelPermalink $original.Width) -}}
+    {{- $srcsetAvif = $srcsetAvif | append (printf "%s %dw" $avif.RelPermalink $avif.Width) -}}
+    {{- $srcsetWebp = $srcsetWebp | append (printf "%s %dw" $webp.RelPermalink $webp.Width) -}}
+  {{- end -}}
 
   <picture>
-    <source srcset="{{ $srcsetAvif }}" type="image/avif" sizes="{{ $sizes }}">
-    <source srcset="{{ $srcsetWebp }}" type="image/webp" sizes="{{ $sizes }}">
+    <source srcset="{{ delimit $srcsetAvif ", " }}" type="image/avif" sizes="{{ $sizes }}">
+    <source srcset="{{ delimit $srcsetWebp ", " }}" type="image/webp" sizes="{{ $sizes }}">
     <img
       class="my-0 rounded-md"
       loading="lazy"
@@ -52,8 +53,8 @@
       alt="{{ $alt }}"
       {{ with $imgObj.Width }}width="{{ . }}"{{ end }}
       {{ with $imgObj.Height }}height="{{ . }}"{{ end }}
-      src="{{ $img800.RelPermalink }}"
-      srcset="{{ $srcset }}"
+      src="{{ $fallback.RelPermalink }}"
+      srcset="{{ delimit $srcset ", " }}"
       sizes="{{ $sizes }}"
       data-zoom-src="{{ $imgObj.RelPermalink }}">
   </picture>
@@ -87,12 +88,16 @@
   {{- if $isRemote -}}
     {{- template "RenderImageSimple" (dict "imgObj" "" "src" $urlStr "alt" $altText) -}}
   {{- else if $resource -}}
-    {{- $isSVG := eq $resource.MediaType.SubType "svg" -}}
-    {{- $shouldOptimize := and (not $disableImageOptimizationMD) (not $isSVG) -}}
+    {{- $isProcessable := reflect.IsImageResourceProcessable $resource -}}
+    {{- /* A mismatched file extension can yield an image resource with unknown dimensions. */ -}}
+    {{- $hasDimensions := and $isProcessable (gt $resource.Width 0) (gt $resource.Height 0) -}}
+    {{- /* Preserve GIF/WebP animations; AVIF conversion would retain only the first frame. */ -}}
+    {{- $preserveAnimation := in (slice "gif" "webp") $resource.MediaType.SubType -}}
+    {{- $shouldOptimize := and (not $disableImageOptimizationMD) $hasDimensions (not $preserveAnimation) -}}
     {{- if $shouldOptimize -}}
       {{- template "RenderImageResponsive" (dict "imgObj" $resource "alt" $altText) -}}
     {{- else -}}
-      {{- if $isSVG -}}
+      {{- if not $isProcessable -}}
         {{- template "RenderImageSimple" (dict "imgObj" "" "src" $resource.RelPermalink "alt" $altText) -}}
       {{- else -}}
         {{- template "RenderImageSimple" (dict "imgObj" $resource "src" $resource.RelPermalink "alt" $altText) -}}

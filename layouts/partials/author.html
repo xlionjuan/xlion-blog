@@ -11,11 +11,14 @@
       {{ $final := $authorImage }}
       {{ $finalAvif := "" }}
       {{ $squareImage := $authorImage }}
-      {{ if not (or $disableImageOptimization (eq $authorImage.MediaType.SubType "svg")) }}
-        {{ $final = $authorImage.Fill "192x192" }}
-        {{ $finalAvif = $authorImage.Fill "192x192 avif" }}
+      {{ if and (not $disableImageOptimization) (reflect.IsImageResourceProcessable $authorImage) }}
+        {{ $final = $authorImage.Fill "192x192 Center" }}
+        {{/* AVIF conversion would discard animation frames. */}}
+        {{ if not (in (slice "gif" "webp") $authorImage.MediaType.SubType) }}
+          {{ $finalAvif = $authorImage.Fill "192x192 Center avif" }}
+        {{ end }}
         {{ $shortSide := int (math.Min $authorImage.Width $authorImage.Height) }}
-        {{ $squareImage = $authorImage.Crop (printf "%dx%d" $shortSide $shortSide ) }}
+        {{ $squareImage = $authorImage.Crop (printf "%dx%d Center" $shortSide $shortSide ) }}
       {{ end }}
       <picture>
         {{ with $finalAvif }}
@@ -34,11 +37,14 @@
       {{ $final := $authorImage }}
       {{ $finalAvif := "" }}
       {{ $squareImage := $authorImage }}
-      {{ if not $disableImageOptimization }}
-        {{ $final = $authorImage.Fill "192x192" }}
-        {{ $finalAvif = $authorImage.Fill "192x192 avif" }}
+      {{ if and (not $disableImageOptimization) (reflect.IsImageResourceProcessable $authorImage) }}
+        {{ $final = $authorImage.Fill "192x192 Center" }}
+        {{/* AVIF conversion would discard animation frames. */}}
+        {{ if not (in (slice "gif" "webp") $authorImage.MediaType.SubType) }}
+          {{ $finalAvif = $authorImage.Fill "192x192 Center avif" }}
+        {{ end }}
         {{ $shortSide := int (math.Min $authorImage.Width $authorImage.Height) }}
-        {{ $squareImage = $authorImage.Crop (printf "%dx%d" $shortSide $shortSide ) }}
+        {{ $squareImage = $authorImage.Crop (printf "%dx%d Center" $shortSide $shortSide ) }}
       {{ end }}
       <picture>
         {{ with $finalAvif }}

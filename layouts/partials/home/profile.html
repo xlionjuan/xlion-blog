@@ -15,11 +15,14 @@
         {{ $final := $authorImage }}
         {{ $finalAvif := "" }}
         {{ $squareImage := $authorImage }}
-        {{ if not (or $disableImageOptimization (eq $authorImage.MediaType.SubType "svg")) }}
-          {{ $final = $authorImage.Fill (print "288x288 q" ( $.Site.Params.Author.imagequality | default "96" )) }}
-          {{ $finalAvif = $authorImage.Fill (print "288x288 avif q" ( $.Site.Params.Author.imagequality | default "96" )) }}
+        {{ if and (not $disableImageOptimization) (reflect.IsImageResourceProcessable $authorImage) }}
+          {{ $final = $authorImage.Fill (print "288x288 Center q" ( $.Site.Params.Author.imagequality | default "96" )) }}
+          {{/* AVIF conversion would discard animation frames. */}}
+          {{ if not (in (slice "gif" "webp") $authorImage.MediaType.SubType) }}
+            {{ $finalAvif = $authorImage.Fill "288x288 Center avif" }}
+          {{ end }}
           {{ $shortSide := int (math.Min $authorImage.Width $authorImage.Height) }}
-          {{ $squareImage = $authorImage.Crop (printf "%dx%d" $shortSide $shortSide ) }}
+          {{ $squareImage = $authorImage.Crop (printf "%dx%d Center" $shortSide $shortSide ) }}
         {{ end }}
         <picture>
           {{ with $finalAvif }}
@@ -30,6 +33,8 @@
             width="144"
             height="144"
             alt="{{ $.Site.Params.Author.name | default `Author` }}"
+            loading="eager"
+            fetchpriority="high"
             src="{{ $final.RelPermalink }}"
             data-zoom-src="{{ $squareImage.RelPermalink }}">
         </picture>
@@ -49,6 +54,3 @@
   </header>
   <section class="prose dark:prose-invert w-full">{{ .Content }}</section>
 </article>
-<section>
-  {{ partial "recent-articles/main.html" . }}
-</section>

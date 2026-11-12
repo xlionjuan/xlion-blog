@@ -35,11 +35,14 @@
 {{ $featured := "" }}
 {{ $featuredURL := "" }}
 {{ $featuredAvifURL := "" }}
+{{ $featureImageHover := site.Params.list.featureImageHover | default false }}
+{{ if isset $target.Params "featureImageHover" }}{{ $featureImageHover = $target.Params.featureImageHover }}{{ end }}
+{{ $featureImagePosition := $target.Params.imagePositionFeature | default site.Params.imagePositionFeature | default site.Params.imagePosition }}
 {{ if not $target.Params.hideFeatureImage }}
   {{/* frontmatter */}}
   {{ with $page }}
     {{ $p := . }}
-    {{ with .Params.featureimage }}
+    {{ with partial "functions/feature-image.html" . }}
       {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
         {{ if site.Params.hotlinkFeatureImage }}
           {{ $featuredURL = . }}
@@ -48,6 +51,9 @@
         {{ end }}
       {{ else }}
         {{ $featured = $p.Resources.Get . }}
+        {{ if not $featured }}
+          {{ $featured = resources.Get . }}
+        {{ end }}
       {{ end }}
     {{ end }}
 
@@ -73,9 +79,17 @@
     {{ if not $featuredURL }}
       {{ with $featured }}
         {{ $featuredURL = .RelPermalink }}
-        {{ if not (or $disableImageOptimization (eq .MediaType.SubType "svg")) }}
-          {{ $featuredURL = (.Resize "600x").RelPermalink }}
-          {{ $featuredAvifURL = (.Resize "600x avif").RelPermalink }}
+        {{ if and (not $disableImageOptimization) (reflect.IsImageResourceProcessable .) }}
+          {{ $width := math.Min 600 .Width | int }}
+          {{ with try (.Resize (printf "%dx" $width)) }}
+            {{ with .Value }}{{ $featuredURL = .RelPermalink }}{{ end }}
+          {{ end }}
+          {{/* AVIF conversion keeps only the first frame; retain GIF/WebP animations. */}}
+          {{ if not (in (slice "gif" "webp") .MediaType.SubType) }}
+            {{ with try (.Resize (printf "%dx avif" $width)) }}
+              {{ with .Value }}{{ $featuredAvifURL = .RelPermalink }}{{ end }}
+            {{ end }}
+          {{ end }}
         {{ end }}
       {{ end }}
     {{ end }}
@@ -83,7 +97,7 @@
 {{ end }}
 
 
-<article class="article-link--shortcode {{ $cardClasses }}">
+<article class="article-link--shortcode group {{ $cardClasses }}">
   {{ with $featuredURL }}
     <div class="flex-none relative overflow-hidden {{ $imgWrapperClasses }} thumbnail">
       <picture>
@@ -92,10 +106,12 @@
         {{ end }}
         <img
           src="{{ . }}"
-          role="presentation"
+          alt="{{ $target.Title }}"
           loading="lazy"
           decoding="async"
-          class="not-prose absolute inset-0 w-full h-full object-cover">
+          fetchpriority="low"
+          class="nozoom not-prose absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] {{ if $featureImageHover }}group-hover:scale-[1.03]{{ end }}"
+          {{ with $featureImagePosition }}style="object-position: {{ . }};"{{ end }} />
       </picture>
     </div>
   {{ end }}
@@ -118,6 +134,14 @@
           {{ end }}
         </h2>
       </a>
+      {{ if and $target.Draft site.Params.article.showDraftLabel }}
+        <div class="ms-2">
+          {{ partial "badge.html" (i18n "article.draft" | emojify) }}
+        </div>
+      {{ end }}
+      {{ if templates.Exists "partials/extend-article-link.html" }}
+        {{ partial "extend-article-link.html" $target }}
+      {{ end }}
     </header>
     <div class="text-sm text-neutral-500 dark:text-neutral-400">
       {{ partial "article-meta/basic.html" $target }}
