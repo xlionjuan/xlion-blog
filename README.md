@@ -2,8 +2,6 @@
 
 This site is built with [Hugo](https://github.com/gohugoio/hugo), [Blowfish Theme](https://github.com/nunocoracao/blowfish), [Bootstrap Grid](https://getbootstrap.com/).
 
-The pinned Blowfish theme supports Hugo extended v0.166.0–v0.169.0. This site was validated with Hugo extended v0.169.0. Native AVIF processing with per-format image settings requires v0.163.0, but the theme sets the higher minimum version for this site.
-
 ### Clone with submodule
 
 ```sh
