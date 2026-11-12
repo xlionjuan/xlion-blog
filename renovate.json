@@ -1,29 +1,24 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:best-practices"],
-  "timezone": "Asia/Taipei",
-  "git-submodules": {"enabled": true},
+  "extends": ["local>xlionjuan/renovatebot-presets"],
   "customManagers": [
     {
       "customType": "regex",
-      "description": "Update HUGO_VERSION in wrangler.jsonc",
-      "managerFilePatterns": ["wrangler.jsonc"],
-      "matchStrings": ["\"HUGO_VERSION\":\\s*\"(?<currentValue>[^\"]+)\""],
+      "description": "Update the Hugo version used by Cloudflare Workers.",
+      "managerFilePatterns": ["/^wrangler\\.jsonc$/"],
+      "matchStrings": [
+        "\"HUGO_VERSION\":\\s*\"(?<currentValue>[^\"]+)\""
+      ],
       "depNameTemplate": "gohugoio/hugo",
       "datasourceTemplate": "github-tags"
     }
   ],
   "packageRules": [
     {
-      "matchManagers": ["github-actions", "html", "git-submodules"],
-      "labels": ["dependencies"]
-    },
-    {
+      "description": "Use a concise commit topic for the repository-specific Hugo version.",
       "matchManagers": ["custom.regex"],
       "matchDepNames": ["gohugoio/hugo"],
-      "commitMessageTopic": "Hugo version",
-      "labels": ["dependencies"]
+      "commitMessageTopic": "Hugo version"
     }
   ]
 }
-
