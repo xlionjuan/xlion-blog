@@ -1,0 +1,4 @@
+Synatx:
+{{<details  "This is the summary text">}}
+Your markdown!
+{{</details>}}
